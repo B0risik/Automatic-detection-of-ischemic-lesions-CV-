@@ -1,0 +1,54 @@
+# ==== Виртуальное окружение ====
+.venv/
+venv/
+env/
+ENV/
+
+# ==== Python кэш ====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+
+# ==== IDE ====
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ==== Датасеты (большие) ====
+isles2022/
+yolo_dataset/
+yolo_dataset_raw/
+*.nii
+*.nii.gz
+
+# ==== Результаты обучения (большие) ====
+runs/
+!runs/**/results.png
+!runs/**/confusion_matrix.png
+!runs/**/results.csv
+
+# ==== Модели (большие) ====
+*.pt
+*.pth
+!best_isles_250.pt
+
+# ==== Временные файлы ====
+debug_*.png
+*.log
+.DS_Store
+Thumbs.db
+123.py
+debug_full.py
+
+# ==== Jupyter ====
+.ipynb_checkpoints/
+
+# ==== Прочее ====
+*.tmp
+*.bak
