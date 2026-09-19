@@ -2,7 +2,7 @@
 
 Система компьютерного зрения для автоматического выявления **острых ишемических очагов** на МРТ головного мозга. Сопоставляет **DWI** и **ADC** последовательности, находит очаги, выделяет их границы и формирует отчёт для специалиста.
 
-## 🎯 Ключевой принцип
+## Ключевой принцип
 
 Очаг считается **острым ишемическим** только если:
 - **DWI** — яркий (гиперинтенсивный сигнал)
@@ -21,7 +21,7 @@
 | Recall (mask) | 0.487 |
 | Скорость инференса | ~50 мс / срез (CPU) |
 
-## 🚀 Как запустить
+## Как запустить
 
 ### 1. Клонировать репозиторий
 ```bash
@@ -41,3 +41,50 @@ cd ischemic-stroke-detection
            ♥♥♥♥♥♥♥
              ♥♥♥
               ♥
+```
+### 2. Установить зависимости
+```bash
+python -m venv .venv
+.venv\Scripts\activate          # Windows
+# source .venv/bin/activate     # Linux/Mac
+pip install -r requirements.txt
+```
+### 3. Скачать датасет
+```Python
+import os
+os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
+from huggingface_hub import snapshot_download
+snapshot_download(
+    repo_id="Kenzoo1/isles2022",
+    repo_type="dataset",
+    local_dir="./isles2022",
+    local_dir_use_symlinks=False
+)
+```
+### 4. Запустить Streamlit-приложение
+```bash
+python -m streamlit run app.py
+```
+
+## Как это работает
+1. NIfTI (DWI + ADC) загружается в приложение.
+2. Обе модальности нормализуются и объединяются в 2-канальное RGB: R = DWI, G = ADC.
+3. YOLOv8n-seg сегментирует очаги (1 класс ischemic_lesion).
+4. Приложение проверяет логику DWI/ADC: если в найденной области DWI ярче, а ADC темнее — детекция подтверждается.
+5. Формируется отчёт с уверенностью и площадью очагов.
+
+## Датасет
+- ISLES 2022 — Ischemic Stroke Lesion Segmentation Challenge
+- 250 исследований, 3 модальности (DWI, ADC, FLAIR)
+- Скачивается через Hugging Face: Kenzoo1/isles2022
+
+## Стек технологий
+- Python 3.14
+- YOLOv8 (ultralytics)
+- PyTorch
+- Streamlit — веб-интерфейс
+- nibabel — работа с NIfTI
+- OpenCV, Pillow — обработка изображений
+
+##⚠️ Дисклеймер
+Результаты работы системы носят вспомогательный характер. Окончательное решение принимает специалист.
