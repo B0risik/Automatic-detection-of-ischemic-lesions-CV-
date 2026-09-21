@@ -61,7 +61,18 @@ snapshot_download(
     local_dir_use_symlinks=False
 )
 ```
-### 4. Запустить Streamlit-приложение
+
+### 4. Создать data.yaml в папке готового датасета
+```
+path: C:/Ischemic Stroke Lesion Segmentation/yolo_dataset
+train: images/train
+val: images/val
+
+nc: 1
+names: ['ischemic_lesion']
+```
+
+### 5. Запустить Streamlit-приложение
 ```bash
 python -m streamlit run app.py
 ```
