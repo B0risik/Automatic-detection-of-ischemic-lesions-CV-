@@ -25,7 +25,7 @@
 
 ### 1. Клонировать репозиторий
 ```bash
-git clone https://github.com/YOUR_USERNAME/ischemic-stroke-detection.git
+git clone https://github.com/B0risik/ischemic-stroke-detection.git
 cd ischemic-stroke-detection
 
         ♥♥♥♥♥♥♥      ♥♥♥♥♥♥♥
